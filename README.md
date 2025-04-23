@@ -27,20 +27,12 @@ sizer/
 
 ## Installation
 
-### Using Go
-
-If you have Go installed (requires Go 1.24+):
-
-```bash
-go install github.com/eli-rich/sizer/cmd/sz@latest
-```
-
 ### From Source
 
 ```bash
 git clone https://github.com/eli-rich/sizer.git
 cd sizer
-go build -o sz ./cmd/sz
+go build -o ./sz
 ```
 
 ## Usage

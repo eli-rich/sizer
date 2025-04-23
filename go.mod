@@ -1,3 +1,3 @@
-module github.com/eli-rich/sizer/cmd/sz
+module github.com/eli-rich/sizer
 
 go 1.24.1
