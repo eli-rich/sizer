@@ -2,20 +2,6 @@
 
 Sizer is a fast, efficient directory size analyzer written in Go. It provides a clear overview of storage usage by displaying the size of files and directories in a human-readable format. The tool is run using the command `sz`.
 
-## Project Structure
-
-The project follows the standard Go convention for command-line tools:
-
-```
-sizer/
-├── cmd/
-│   └── sz/         # Binary will be named 'sz'
-│       └── main.go # Main application code
-├── go.mod
-├── LICENSE
-└── README.md
-```
-
 ## Features
 
 - 📊 Lists files and directories sorted by size (largest first)
