@@ -1,11 +1,12 @@
 # Sizer
 
-Sizer is a fast, efficient directory size analyzer written in Go. It provides a clear overview of storage usage by displaying the size of files and directories in a human-readable format. The tool is run using the command `sz`.
+Sizer is a fast, efficient file and directory size analyzer written in Go. It provides a clear overview of storage usage by displaying the size of files and directories in a human-readable format. The tool is run using the command `sz`.
 
 ## Features
 
 - 📊 Lists files and directories sorted by size (largest first)
 - 🔍 Human-readable file sizes (KB, MB, GB, etc.)
+- 🗂️ Works with both individual files and directories
 - ⚡ Parallel directory scanning for improved performance
 - 🔄 Real-time progress updates during scanning
 - 📁 Option to include hidden files (dotfiles)
@@ -29,7 +30,7 @@ Basic usage:
 sz [path] [-a]
 ```
 
-- `[path]`: Directory to analyze (defaults to current directory if not specified)
+- `[path]`: File or directory to analyze (defaults to current directory if not specified)
 - `-a`: Include hidden files and directories (those starting with a dot)
 
 Examples:
@@ -41,6 +42,9 @@ sz
 # Analyze a specific directory
 sz /path/to/directory
 
+# Analyze a specific file
+sz /path/to/file.txt
+
 # Include hidden files
 sz -a
 
@@ -49,6 +53,8 @@ sz /path/to/directory -a
 ```
 
 ## Output Example
+
+For directories:
 
 ```
 Contents of: /home/user/documents
@@ -62,9 +68,22 @@ FILE   125.0 KB        notes.txt
 TOTAL: 371.5 MB (324 files)
 ```
 
+For individual files:
+
+```
+File: /home/user/documents/report.pdf
+Size: 5.3 MB
+```
+
 ## How It Works
 
-Sizer reads the specified directory and:
+Sizer first checks if the target is a file or directory:
+
+For individual files:
+
+1. Simply displays the file name and size in a human-readable format
+
+For directories:
 
 1. Immediately processes files at the root level
 2. Creates a worker pool to scan subdirectories in parallel

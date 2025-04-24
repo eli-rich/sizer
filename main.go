@@ -51,13 +51,40 @@ func main() {
 		target = "."
 	}
 
+	// Check if target exists and what type it is
+	fileInfo, err := os.Stat(target)
+	if err != nil {
+		// Error if target doesn't exist or can't be accessed
+		log.Fatalf("error accessing target: %v\n", err)
+	}
+
+	// If target is a file, simply output the size of the file and exit
+	if !fileInfo.IsDir() {
+		fileSize := fileInfo.Size()
+		// Get absolute path for display
+		absPath, err := filepath.Abs(target)
+		if err != nil {
+			absPath = target // Fallback to target if we can't get absolute path
+		}
+		fmt.Printf("\nFile: %s\n", absPath)
+		fmt.Printf("Size: %s\n", formatBytes(fileSize))
+		return
+	}
+
+	// If target is a directory, proceed with normal directory analysis
 	rootEntries, totalSize, totalCount, err := listRootWithSizes(target, showAll)
 	if err != nil {
 		log.Fatalf("error walking: %v\n", err)
 	}
 
+	// Get absolute path for display
+	absPath, err := filepath.Abs(target)
+	if err != nil {
+		absPath = target // Fallback to target if we can't get absolute path
+	}
+
 	// Print each root entry with its size
-	fmt.Printf("\nContents of: %s\n", target)
+	fmt.Printf("\nContents of: %s\n", absPath)
 	fmt.Println("----------------------------------------")
 	for _, entry := range rootEntries {
 		entryType := "DIR"
